@@ -515,5 +515,5 @@ async def on_message(message):
 #           return 
 
 #実行
-loop.start()
+#loop.start()
 client.run(token)
