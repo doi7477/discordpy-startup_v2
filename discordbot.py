@@ -2,6 +2,7 @@ from ast import Not
 import os
 import random
 import traceback
+import asyncio
 from datetime import datetime, timedelta, timezone
 
 import discord
@@ -464,5 +465,9 @@ async def on_message(message):
                 return
 
 #実行
-loop.start()
+#loop.start()
+async def fn():
+    await loop.start()
+loop_ = asyncio.get_event_loop()
+loop_.run_until_complete(fn())
 client.run(token)
