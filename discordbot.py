@@ -116,7 +116,7 @@ play_word_list = ['ヒーロー','ダークナイト','パラディン','ボウ�
 #タイマー処理
 ####################
 @tasks.loop(seconds=60)
-async def loop():
+async def loops():
 #    await client.wait_until_ready()
     channel_ready = client.get_channel(DEBUG_CHANNEL_ID)
     if channel_ready is None:
@@ -471,7 +471,7 @@ async def on_message(message):
                 return
 
 #実行
-loop.start()
+loops.start()
 
 #async def fn():
 #    loop.start()
