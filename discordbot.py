@@ -472,8 +472,9 @@ async def on_message(message):
 
 #実行
 #loop.start()
-client.run(token)
+
 async def fn():
     await loop.start()
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
+client.run(token)
