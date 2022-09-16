@@ -128,18 +128,6 @@ async def loop():
             print('要塞チャンネルIDの取得に失敗した')
             return
         await channel.send('@everyone 要塞だよ！全員集合！！')
-#    elif now == '21:30': 
-#        print('21:30の通知処理')
-#        nowday = datetime.now(JST).weekday()
-#        print(f'{nowday}の日です')
-#        # 3は木曜日
-#        if nowday == 3:
-#            channel = client.get_channel(BOSS_CHANNEL_ID)
-#            if channel is None:
-#                print('ボス討伐チャンネルIDの取得に失敗した')
-#                return
-#            print('カオスアビスPT作ったか？通知')
-#            await channel.send(f'{CHINO_MENTION} {RIRI_MENTION} {MIMO_MENTION}  \r\nもうアビスのPT作ったかい？')
     elif now == '11:30': 
         print('11:30の通知処理')
         nowday = datetime.now(JST).weekday()
@@ -475,45 +463,6 @@ async def on_message(message):
                 await message.channel.send(embed=embed_help)
                 return
 
-####################
-#メッセージ削除処理
-###################
-#@client.event
-#async def on_message_delete(message):
-#    print('メッセージ削除処理')
-#    if message.channel.id == DEBUG_CHANNEL_ID:
-#        #デバッグチャンネルの削除は何も行わない
-#         return
-#以下はDynoで実装
-#    channel = client.get_channel(CHATDEL_CHANNEL_ID)
-#    if channel is None:
-#        print('メッセージ削除チャンネルIDの取得に失敗した')
-#        return
-#    await channel.send("誰かが" + message.channel.name + "のメッセージを削除しました。\r\n> " + message.content)
-#    return
-
-####################
-#VCステータス更新処理
-####################
-#@client.event
-#async def on_voice_state_update(member, before, after): 
-#    print('VCステータス更新処理')
-#以下はDynoで実装
-#    if member.guild.id == STUP_SERVER_ID  and (before.channel != after.channel):
-#        alert_channel = client.get_channel(CONNECT_CHANNEL_ID)
-#        if alert_channel is None:
-#            print('接続通知チャンネルIDのの取得に失敗した')
-#            return
-#
-#       if before.channel is None: 
-#           msg = f'{member.name} が [{after.channel.name}] のVCに参加しました。'
-#           await alert_channel.send(msg)
-#           return
-#       elif after.channel is None: 
-#           msg = f'{member.name} が [{before.channel.name}] のVCから退出しました。'
-#           await alert_channel.send(msg)
-#           return 
-
 #実行
-#loop.start()
+loop.start()
 client.run(token)
