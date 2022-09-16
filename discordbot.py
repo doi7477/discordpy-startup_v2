@@ -117,7 +117,7 @@ play_word_list = ['ヒーロー','ダークナイト','パラディン','ボウ�
 ####################
 @tasks.loop(seconds=60)
 async def loop():
-    await client.wait_until_ready()
+#    await client.wait_until_ready()
     channel_ready = client.get_channel(DEBUG_CHANNEL_ID)
     if channel_ready is None:
         print('デバックチャンネルIDの取得に失敗した')
@@ -475,6 +475,7 @@ async def on_message(message):
 
 async def fn():
     await loop.start()
+    return
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
 client.run(token)
