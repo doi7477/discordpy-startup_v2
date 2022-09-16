@@ -176,6 +176,12 @@ async def loops():
             await channel.send('@everyone \r\n本日の「ギルド活動 施設物アップデート」はお済みですか？')
     return
 
+async def fn():
+    loop.start()
+    
+loop_ = asyncio.get_event_loop()
+loop_.run_until_complete(fn())
+
 ####################
 #起動時の処理
 ####################
@@ -471,12 +477,6 @@ async def on_message(message):
                 return
 
 #実行
-loops.start()
-
-#async def fn():
-#    loop.start()
-    
-#loop_ = asyncio.get_event_loop()
-#loop_.run_until_complete(fn())
+#loops.start()
 client.run(token)
 
