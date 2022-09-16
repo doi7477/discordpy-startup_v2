@@ -117,7 +117,12 @@ play_word_list = ['ヒーロー','ダークナイト','パラディン','ボウ�
 ####################
 @tasks.loop(seconds=60)
 async def loop():
-
+    channel_ready = client.get_channel(DEBUG_CHANNEL_ID)
+    if channel_ready is None:
+        print('デバックチャンネルIDの取得に失敗した')
+        return
+    await channel_ready.send('Loop')
+    
     #現在時刻取得
     JST = timezone(timedelta(hours=+9), 'JST')
     now = datetime.now(JST).strftime('%H:%M')
