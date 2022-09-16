@@ -471,12 +471,12 @@ async def on_message(message):
                 return
 
 #実行
-#loop.start()
+loop.start()
 
-async def fn():
-    loop.start()
-    client.run(token)
-loop_ = asyncio.get_event_loop()
-loop_.run_until_complete(fn())
-
+#async def fn():
+#    loop.start()
+    
+#loop_ = asyncio.get_event_loop()
+#loop_.run_until_complete(fn())
+client.run(token)
 
