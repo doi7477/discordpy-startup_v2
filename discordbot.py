@@ -176,13 +176,11 @@ async def loops():
     return
 
 async def fn():
-#    print('client.wait_until_ready()')
-#    await client.wait_until_ready()
     print('loops.start()')
-    loops.start()
+    await loops.start()
     
-#loop_ = asyncio.get_event_loop()
-#loop_.run_until_complete(fn())
+loop_ = asyncio.get_event_loop()
+loop_.run_until_complete(fn())
 
 ####################
 #起動時の処理
@@ -480,7 +478,6 @@ async def on_message(message):
 
 #実行
 #loops.start()
-asyncio. set_event_loop(loops)
-loops.start()
+#loops.start()
 client.run(token)
 
