@@ -175,10 +175,10 @@ async def loops():
             await channel.send('@everyone \r\n本日の「ギルド活動 施設物アップデート」はお済みですか？')
     return
 
-@loops.before_loop
-async def loops_task_before_loop():
-    print('waiting...')
-    await client.wait_until_ready()
+#@loops.before_loop
+#async def loops_task_before_loop():
+#    print('waiting...')
+#    await client.wait_until_ready()
 
 ####################
 #起動時の処理
@@ -483,8 +483,8 @@ async def fn():
     await loops.start()
     print('loops.start()2')
 
-loop_ = asyncio.get_event_loop()
-loop_.run_until_complete(fn())
+#loop_ = asyncio.get_event_loop()
+#loop_.run_until_complete(fn())
 
 async def main():
     task1 = asyncio.create_task(fn())
