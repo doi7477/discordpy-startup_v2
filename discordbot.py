@@ -177,7 +177,7 @@ async def loops():
 
 async def fn():
     print('loops.start()')
-    await loops.start()
+    loops.start()
     
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
