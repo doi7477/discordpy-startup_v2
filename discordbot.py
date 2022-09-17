@@ -481,9 +481,9 @@ async def on_message(message):
 async def fn():
     print('fn() start')
     await loops.start()
-    await client.run(token)
     print('fn() end')
 
+client.run(token)
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
 
