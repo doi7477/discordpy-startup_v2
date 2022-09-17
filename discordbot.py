@@ -480,8 +480,8 @@ async def on_message(message):
 #client.loop.create_task(loops())
 async def fn():
     print('loops.start()')
-    loops.start()
-    client.run(token)
+    await loops.start()
+    await client.run(token)
     
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
