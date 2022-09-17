@@ -92,7 +92,7 @@ redram_png = "https://lh3.googleusercontent.com/erYTDwgrj6fKqOWI9MR8j4zzS9Lbeocq
 redram_contents = "🙆‍♀ ハード\r\n"\
         "🙅‍♂️ ノーマル\r\n"\
 
-#カオスアビス募集文
+#カオスアビス募集文 
 chaosAbyss_title = "今日22時のカオスアビス募集"
 chaosAbyss_color = 0xEDE51C
 chaosAbyss_png = "https://lh3.googleusercontent.com/uO2fjlRg4QQQRzBzE8ZG4D-z2XZCnPHohcwNV-4oZ8PRTDlMjMVvQ0wzwFuv7Dp3x_TKYaJ0krGpynXQ8HLxgu_454KfFplO8Ibuo943eGw=rw"
