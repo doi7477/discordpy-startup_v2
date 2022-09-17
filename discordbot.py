@@ -481,6 +481,7 @@ async def on_message(message):
 async def fn():
     print('loops.start()')
     loops.start()
+    print('loops.start()2')
     
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
