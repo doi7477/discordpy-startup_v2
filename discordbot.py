@@ -180,7 +180,7 @@ async def loops():
 #    await client.wait_until_ready()
 async def fn():
     print('loops.start()')
-    await loops.start()
+    async loops.start()
     
 loop_ = asyncio.get_event_loop()
 loop_.run_until_complete(fn())
