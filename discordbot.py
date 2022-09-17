@@ -480,6 +480,7 @@ async def on_message(message):
 
 #実行
 #loops.start()
+asyncio. set_event_loop(loops)
 loops.start()
 client.run(token)
 
