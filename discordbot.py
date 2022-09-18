@@ -392,7 +392,7 @@ async def on_message_for_user(message):
                 return
             
             elif 'テスト' == tmp[1]:
-                #テストコマンド
+                #テスト コマンド
                 debug_log('[on_message_for_user]:テストコマンド実行')
                 await send_embed(message.channel.id, embed_test)
                 return
