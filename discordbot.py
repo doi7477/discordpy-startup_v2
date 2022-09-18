@@ -176,15 +176,22 @@ async def on_message_for_setupkun(message):
         メッセージ情報
     """
     #せとうぽくんのメッセージがボス募集通知の場合リアクションを付ける
-    debug_log('せとうぽくんのメッセージがボス募集通知の場合リアクションを付ける')
+    
     if len(message.embeds)!=0:
         if message.embeds[0].title == redram_title:
+            debug_log('アカイラム募集リアクション')
             await message.add_reaction("🙆‍♀️")
             await message.add_reaction("🙅‍♂️")
         elif message.embeds[0].title == chaosAbyss_title:
+            debug_log('カオスアビス募集リアクション')
             await message.add_reaction("🙆‍♀️")
         elif message.embeds[0].title == chaosMagnus_title:
+            debug_log('カオスマグナス募集リアクション')
             await message.add_reaction("🙆‍♀️")
+        else:
+            debug_log('メッセージ受信(せとうぽくん) 何もしない')
+    else:
+        debug_log('メッセージ受信(せとうぽくん) 何もしない')
 
 async def on_message_for_another_bot(message):
     """
