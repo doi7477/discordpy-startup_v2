@@ -1,6 +1,5 @@
 """
 Discode bot SetupKun Version.2.0.0
-
 Todo:
     * 
     * 
@@ -47,6 +46,7 @@ DEBUG_ACTIONCHANNEL1_ID = 905595698794356776            #どい動物園 actionl
 DEBUG_ACTIONCHANNEL2_ID = 905675136563294219            #どい動物園 actionlog-テキスト
 DEBUG_ACTIONCHANNEL3_ID = 905675346198798358            #どい動物園 actionlog-VC
 DEBUG_INFORMATION_ID = 1020902066639614053              #通知用チャンネル
+DEBUG_HIDE_ID = 1021028778983571456                     #裏チャンネル
 
 #Bot ID
 DYNO_ID_1 = 905665627736383528                          #Dyno-通知オフにしてね
@@ -91,6 +91,24 @@ welcomemsg_contents = "以下で自己紹介をお願いします\r\n"\
         "\r\n"\
         "不明点は気軽に連絡ください\r\n"
 
+#要塞通知文
+yosai_title = "要塞だよ！全員集合！！"
+yosai_color = 0x884898
+yosai_png ='https://lh3.googleusercontent.com/P8DWVL965RfU67CflwZhp7TStlmJEWVJvulqPP2wniJWxM5KoEIDwTbdfVu699UwVBO7wvQihnLI_7_zmmlwP-xCjCOObZPL2IKBUNsN8H8'
+yosai_contents = "@everyone "
+
+#建設物通知文
+building_title = "建設物アップデートお済みですか？"
+building_color = 0xffffff
+building_png ='https://lh3.googleusercontent.com/P8DWVL965RfU67CflwZhp7TStlmJEWVJvulqPP2wniJWxM5KoEIDwTbdfVu699UwVBO7wvQihnLI_7_zmmlwP-xCjCOObZPL2IKBUNsN8H8'
+building_contents = "@everyone "
+
+#建設物シャレニアン通知文
+syarenian_title = "シャレニアン＆建設物アップデートお済みですか？"
+syarenian_color = 0xffffff
+syarenian_png ='https://lh3.googleusercontent.com/XPfsCHvTK2m8DxP86bV1E97RpA_pj1n8EBSs06bcWELhcIXmg6KfJa5J0jvpiRVRrquP4MISnR6te5C9aXYUrbujcQSR7VinUd5-ih93H71lVA'
+syarenian_contents = "@everyone "
+
 #アカイラム募集文
 redram_title = "22:00頃のアカイラム募集"
 redram_color = 0xED1C24
@@ -130,7 +148,6 @@ play_word_list = ['ヒーロー','ダークナイト','パラディン','ボウ�
 def debug_log(text):
     """
     ログ出力
-
     Parameters:
     ----------
     text : String
@@ -145,7 +162,6 @@ def debug_log(text):
 async def send_message(channel_id, message):
     """
     メッセージ送信
-
     Parameters:
     ----------
     channel_id : int
@@ -164,7 +180,6 @@ async def send_message(channel_id, message):
 async def send_embed(channel_id, _embed):
     """
     メッセージ送信
-
     Parameters:
     ----------
     channel_id : int
@@ -183,7 +198,6 @@ async def send_embed(channel_id, _embed):
 async def on_message_for_setupkun(message):
     """
     メッセージ受信(せとうぽくん)
-
     Parameters:
     ----------
     message : discord.Message
@@ -206,7 +220,6 @@ async def on_message_for_setupkun(message):
 async def on_message_for_another_bot(message):
     """
     メッセージ受信(他Bot)
-
     Parameters:
     ----------
     message : discord.Message
@@ -308,11 +321,52 @@ async def on_message_for_another_bot(message):
         debug_log('[on_message_for_another_bot]:メル売り以外なので通知')
         await send_message(BUSINESS_TWEET_CHANNEL_ID, tmp[1])
         return
+    
+    elif message.channel.id == DEBUG_INFORMATION_ID:
+        #infomationlogでの発言
+        if '!要塞通知' in message.content:
+            embed = discord.Embed(title=yosai_title,description="",color=yosai_color)
+            embed.add_field(name=yosai_contents,inline=False)
+            embed.set_thumbnail(url=yosai_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
+        elif '!建設物' in message.content:
+            embed = discord.Embed(title=building_title,description="",color=building_color)
+            embed.add_field(name=building_contents,inline=False)
+            embed.set_thumbnail(url=building_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
+        elif '!シャレニアン' in message.content:
+            embed = discord.Embed(title=syarenian_title,description="",color=syarenian_color)
+            embed.add_field(name=syarenian_contents,inline=False)
+            embed.set_thumbnail(url=syarenian_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
+        elif '!アカイラム' in message.content:
+            debug_log('[on_message_for_another_bot]:アカイラム討伐通知')
+            embed = discord.Embed(title=redram_title,description="",color=redram_color)
+            embed.add_field(name=f"以下のリアクションをポチッと",value=redram_contents,inline=False)
+            embed.set_thumbnail(url=redram_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
+        elif '!カオスアビス' in message.content:
+            debug_log('[on_message_for_another_bot]:カオスアビス討伐通知')
+            embed = discord.Embed(title=chaosAbyss_title,description="",color=chaosAbyss_color)
+            embed.add_field(name=f"以下のリアクションをポチッと",value=chaosAbyss_contents,inline=False)
+            embed.set_thumbnail(url=chaosAbyss_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
+        elif '!カオスマグナス' in message.content:
+            debug_log('[on_message_for_another_bot]:カオスマグナス討伐通知')
+            embed = discord.Embed(title=chaosMagnus_title,description="",color=chaosMagnus_color)
+            embed.add_field(name=f"以下のリアクションをポチッと",value=chaosMagnus_contents,inline=False)
+            embed.set_thumbnail(url=chaosMagnus_png)
+            await send_embed(DEBUG_HIDE_ID, embed)
+            return
 
 async def on_message_for_user(message):
     """
     メッセージ受信(ユーザー)
-
     Parameters:
     ----------
     message : discord.Message
@@ -427,7 +481,6 @@ async def on_message_for_user(message):
 async def on_ready():
     """
     Discode Bot 起動
-
     """
     #プレイ中を更新
     presence = discord.Game(random.choice(play_word_list))
