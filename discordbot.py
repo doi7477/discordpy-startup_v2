@@ -303,7 +303,7 @@ async def on_message_for_user(message):
     message : discord.Message
         メッセージ情報
     """
-    await send_msg(DEBUG_CHANNEL_ID, f"[{message.channel.name}],[{message.author.name}]:{message.content}")
+    send_msg(DEBUG_CHANNEL_ID, f"[{message.channel.name}],[{message.author.name}]:{message.content}")
 
     if message.content.startswith('/せとうぽ'):
         tmp = message.content.split()
