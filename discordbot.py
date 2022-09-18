@@ -157,7 +157,7 @@ async def send_message(channel_id, message):
     #メッセージ送信
     channel = client.get_channel(channel_id)
     if channel is None:
-        debug_log(f'チャンネルIDの取得に失敗しました({channel_id})')
+        debug_log(f'[send_message]:チャンネルIDの取得に失敗しました({channel_id})')
         return
     await channel.send(message)
 
@@ -169,14 +169,14 @@ async def send_embed(channel_id, _embed):
     ----------
     channel_id : int
         チャンネルID
-    message : String
-        メッセージ内容
+    _embed : discord.Embed
+        Embed内容
     """
-    debug_log(f'[send_message]:{channel_id}, {_embed}')
+    debug_log(f'[send_embed]:{channel_id}, {_embed}')
     #メッセージ送信
     channel = client.get_channel(channel_id)
     if channel is None:
-        debug_log(f'チャンネルIDの取得に失敗しました({channel_id})')
+        debug_log(f'[send_embed]:チャンネルIDの取得に失敗しました({channel_id})')
         return
     await channel.send(embed=_embed)
 
@@ -193,14 +193,14 @@ async def on_message_for_setupkun(message):
     
     if len(message.embeds)!=0:
         if message.embeds[0].title == redram_title:
-            debug_log('アカイラム募集リアクション')
+            debug_log('[on_message_for_setupkun]:アカイラム募集リアクション')
             await message.add_reaction("🙆‍♀️")
             await message.add_reaction("🙅‍♂️")
         elif message.embeds[0].title == chaosAbyss_title:
-            debug_log('カオスアビス募集リアクション')
+            debug_log('[on_message_for_setupkun]:カオスアビス募集リアクション')
             await message.add_reaction("🙆‍♀️")
         elif message.embeds[0].title == chaosMagnus_title:
-            debug_log('カオスマグナス募集リアクション')
+            debug_log('[on_message_for_setupkun]:カオスマグナス募集リアクション')
             await message.add_reaction("🙆‍♀️")
 
 async def on_message_for_another_bot(message):
@@ -215,97 +215,97 @@ async def on_message_for_another_bot(message):
     global trade_ngword_list
     if message.author.id == DYNO_ID_1:
         #デバックに画像削除メッセージ通知
-        debug_log('デバックに画像削除メッセージ通知')
+        debug_log('[on_message_for_another_bot]:デバックに画像削除メッセージ通知')
         await send_embed(DEBUG_ACTIONCHANNEL1_ID, message.embeds[0].copy())
         return
 
     elif message.author.id == DYNO_ID_2:
         #デバッグに削除メッセージ通知
-        debug_log('デバッグに削除メッセージ通知')
+        debug_log('[on_message_for_another_bot]:デバッグに削除メッセージ通知')
         await send_embed(DEBUG_ACTIONCHANNEL2_ID, message.embeds[0].copy())
         return
 
     elif message.author.id == DYNO_ID_3:
         #デバッグにVC接続メッセージ通知
-        debug_log('デバッグにVC接続メッセージ通知')
+        debug_log('[on_message_for_another_bot]:デバッグにVC接続メッセージ通知')
         await send_embed(DEBUG_ACTIONCHANNEL3_ID, message.embeds[0].copy())
         return
     
     if message.channel.id == MEE6_CHANNEL_ID:
         #mee6での発言
-        debug_log('mee6での発言')
+        debug_log('[on_message_for_another_bot]:mee6での発言')
         if message.content.startswith('!LevelUp'):
-            debug_log('Mee6レベルアップ処理')
+            debug_log('[on_message_for_another_bot]:Mee6レベルアップ処理')
             mentions = message.mentions
             if not mentions:
-                debug_log('メンション取得失敗')
+                debug_log('[on_message_for_another_bot]:メンション取得失敗')
                 return
             member = message.guild.get_member(mentions[0].id)
             tmp = message.content.split(',')
             #配列が3つないと区切り失敗
             if len(tmp) < 3:
-                debug_log('区切りに失敗')
+                debug_log('[on_message_for_another_bot]:区切りに失敗')
                 return
 
             level = tmp[2]
             if level == 'Level5':
-                debug_log('Level5ロール付与')
+                debug_log('[on_message_for_another_bot]:Level5ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV5))
                 await send_message(message.channel.id, 'ロールを追加しました！！「Level5」')
             elif level == 'Level15':
-                debug_log('Level15ロール付与')
+                debug_log('[on_message_for_another_bot]:Level15ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV15))
                 await member.remove_roles(message.guild.get_role(ID_ROLE_LV5))
                 await send_message(message.channel.id, 'ロールを変更しました！！「Level5」→「Level15」')
             elif level == 'Level25':
-                debug_log('Level25ロール付与')
+                debug_log('[on_message_for_another_bot]:Level25ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV25))
                 await member.remove_roles(message.guild.get_role(ID_ROLE_LV15))
                 await send_message(message.channel.id, 'ロールを変更しました！！「Level15」→「Level25」')
             elif level == 'Level35':
-                debug_log('Level35ロール付与')
+                debug_log('[on_message_for_another_bot]:Level35ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV35))
                 await member.remove_roles(message.guild.get_role(ID_ROLE_LV25))
                 await send_message(message.channel.id, 'ロールを変更しました！！「Level25」→「Level35」')
             elif level == 'Level45':
-                debug_log('Level45ロール付与')
+                debug_log('[on_message_for_another_bot]:Level45ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV45))
                 await member.remove_roles(message.guild.get_role(ID_ROLE_LV35))
                 await send_message(message.channel.id, 'ロールを変更しました！！「Level35」→「Level45」')
             elif level == 'Level55':
-                debug_log('Level55ロール付与')
+                debug_log('[on_message_for_another_bot]:Level55ロール付与')
                 await member.add_roles(message.guild.get_role(ID_ROLE_LV55))
                 await member.remove_roles(message.guild.get_role(ID_ROLE_LV45))
                 await send_message(message.channel.id, 'ロールを変更しました！！「Level45」→「Level55」')
             else:
-                debug_log('ロール変更なし')
+                debug_log('[on_message_for_another_bot]:ロール変更なし')
             return
     
     elif message.channel.id == OFFICIAL_TWEET_CHANNEL_ID:
         #公式ツイートチャンネルでの発言
-        debug_log('公式ツイートチャンネルでの発言')
+        debug_log('[on_message_for_another_bot]:公式ツイートチャンネルでの発言')
         if '瞬断' in message.content or 'パッチの適用' in message.content:
-            debug_log('瞬断通知')
+            debug_log('[on_message_for_another_bot]:瞬断通知')
             await send_message(ZATUDAN_CHANNEL_ID, "@everyone 瞬断をお知らせします。\r\n\r\n───以下内容───\r\n" + message.content)
             return
 
     elif message.channel.id == INSIDE_CHANNEL_ID:
         #裏チャンネルでの発言
-        debug_log('#裏チャンネルでの発言')
+        debug_log('[on_message_for_another_bot]:裏チャンネルでの発言')
         #メル販売切り分け処理
         tmp = message.content.split('!-!-!-!-!-!-!')
         #配列が2つないと区切り失敗
         if len(tmp) < 2:
-            debug_log('区切りに失敗')
+            debug_log('[on_message_for_another_bot]:区切りに失敗')
             return
 
         for word in trade_ngword_list:
             if word in tmp[0]:
-                debug_log('メル売りなので通知しない')
+                debug_log('[on_message_for_another_bot]:メル売りなので通知しない')
                 await send_message(INSIDE_CHANNEL_ID, 'ひゃっはああ！てめぇはダメだ！地獄に堕ちな')
                 return
 
-        debug_log('メル売り以外なので通知')
+        debug_log('[on_message_for_another_bot]:メル売り以外なので通知')
         await send_message(BUSINESS_TWEET_CHANNEL_ID, tmp[1])
         return
 
@@ -320,21 +320,20 @@ async def on_message_for_user(message):
     """
     global embed_help
     global embed_test
-    debug_log('メッセージ受信(ユーザー)')
     await send_message(DEBUG_CHANNEL_ID, f"[{message.channel.name}],[{message.author.name}]:{message.content}")
 
     if message.content.startswith('/せとうぽ'):
         tmp = message.content.split()
         if '/せとうぽ' != tmp[0]:
             #トリガーコマンドが間違えている
-            debug_log('/せとうぽのコマンドミス(/せとうぽの後にスペースが入っていない)')
+            debug_log('[on_message_for_user]:/せとうぽのコマンドミス(/せとうぽの後にスペースが入っていない)')
             await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
             await send_embed(message.channel.id, embed_help)
             return
 
         if len(tmp) == 1:
             #コマンドがせとうぽのみ
-            debug_log('ヘルプ表示処理')
+            debug_log('[on_message_for_user]:ヘルプ表示処理')
             await send_embed(message.channel.id, embed_help)
             return
 
@@ -342,7 +341,7 @@ async def on_message_for_user(message):
             #コマンドに引数が1つある
             if 'おみくじ' == tmp[1]:
                 #おみくじ
-                debug_log('おみくじ')
+                debug_log('[on_message_for_user]:おみくじ')
                 rand_result = random.randint(1,100)
                 if rand_result < 20:
                     await send_message(message.channel.id, '大吉 です')
@@ -369,11 +368,11 @@ async def on_message_for_user(message):
                 change_role = message.guild.get_role(ID_ROLE_MONITOR_OFFICIAL)
                 member = message.guild.get_member(message.author.id)
                 if change_role in member.roles:
-                    debug_log('公式 ロール剥奪')
+                    debug_log('[on_message_for_user]:公式 ロール剥奪')
                     await member.remove_roles(change_role)
                     await send_message(message.channel.id, 'あなたの「公式ツイート監視」ロールを剥奪しました')
                 else:
-                    debug_log('公式 ロール付与')
+                    debug_log('[on_message_for_user]:公式 ロール付与')
                     await member.add_roles(change_role)
                     await send_message(message.channel.id, 'あなたに「公式ツイート監視」ロールを付与しました')
                 return
@@ -383,31 +382,31 @@ async def on_message_for_user(message):
                 change_role = message.guild.get_role(ID_ROLE_MONITOR_BUSINESS)
                 member = message.guild.get_member(message.author.id)
                 if change_role in member.roles:
-                    debug_log('取引所 ロール剥奪')
+                    debug_log('[on_message_for_user]:取引所 ロール剥奪')
                     await member.remove_roles(change_role)
                     await send_message(message.channel.id, 'あなたの「取引所ツイート監視」ロールを剥奪しました')
                 else:
-                    debug_log('取引所 ロール付与')
+                    debug_log('[on_message_for_user]:取引所 ロール付与')
                     await member.add_roles(change_role)
                     await send_message(message.channel.id, 'あなたに「取引所ツイート監視」ロールを付与しました')
                 return
             
             elif 'テスト' == tmp[1]:
                 #テストコマンド
-                debug_log('テストコマンド実行')
+                debug_log('[on_message_for_user]:テストコマンド実行')
                 await send_embed(message.channel.id, embed_test)
                 return
 
             else:
                 #該当コマンドなし 第一引数指定ミス
-                debug_log('該当コマンドなし 第一引数指定ミス')
+                debug_log('[on_message_for_user]:該当コマンドなし 第一引数指定ミス')
                 await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
                 await send_embed(message.channel.id, embed_help)
                 return
 
         elif len(tmp) == 4:
             #せとうぽくんで発言
-            debug_log('せとうぽくんで発言')
+            debug_log('[on_message_for_user]:せとうぽくんで発言')
             if '発言' == tmp[1]:
                 id = int(tmp[2])
                 msg = tmp[3]
@@ -416,7 +415,7 @@ async def on_message_for_user(message):
         
         else:
             #/せとうぽだったが該当コマンドではなかった
-            debug_log('該当コマンドなし 引数の数ミス')
+            debug_log('[on_message_for_user]:該当コマンドなし 引数の数ミス')
             await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
             await send_embed(message.channel.id, embed_help)
             return
@@ -452,7 +451,7 @@ async def on_member_join(member):
     global welcomemsg_contents
 
     if member.guild.id != STUP_SERVER_ID:
-        debug_log(f'せとうぽサーバー以外のためスキップ({member.guild.id})')
+        debug_log(f'[on_member_join]:せとうぽサーバー以外のためスキップ({member.guild.id})')
         return
 
     #ようこそ文送信
