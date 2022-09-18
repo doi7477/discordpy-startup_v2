@@ -161,6 +161,25 @@ async def send_message(channel_id, message):
         return
     await channel.send(message)
 
+async def send_embed(channel_id, _embed):
+    """
+    メッセージ送信
+
+    Parameters:
+    ----------
+    channel_id : int
+        チャンネルID
+    message : String
+        メッセージ内容
+    """
+    debug_log(f'[send_message]:{channel_id}, {_embed}')
+    #メッセージ送信
+    channel = client.get_channel(channel_id)
+    if channel is None:
+        debug_log(f'チャンネルIDの取得に失敗しました({channel_id})')
+        return
+    await channel.send(embed=_embed)
+
 async def on_message_for_setupkun(message):
     """
     メッセージ受信(せとうぽくん)
@@ -197,19 +216,19 @@ async def on_message_for_another_bot(message):
     if message.author.id == DYNO_ID_1:
         #デバックに画像削除メッセージ通知
         debug_log('デバックに画像削除メッセージ通知')
-        await send_message(DEBUG_ACTIONCHANNEL1_ID, embed=message.embeds[0].copy())
+        await send_embed(DEBUG_ACTIONCHANNEL1_ID, message.embeds[0].copy())
         return
 
     elif message.author.id == DYNO_ID_2:
         #デバッグに削除メッセージ通知
         debug_log('デバッグに削除メッセージ通知')
-        await send_message(DEBUG_ACTIONCHANNEL2_ID, embed=message.embeds[0].copy())
+        await send_embed(DEBUG_ACTIONCHANNEL2_ID, message.embeds[0].copy())
         return
 
     elif message.author.id == DYNO_ID_3:
         #デバッグにVC接続メッセージ通知
         debug_log('デバッグにVC接続メッセージ通知')
-        await send_message(DEBUG_ACTIONCHANNEL3_ID, embed=message.embeds[0].copy())
+        await send_embed(DEBUG_ACTIONCHANNEL3_ID, message.embeds[0].copy())
         return
     
     if message.channel.id == MEE6_CHANNEL_ID:
@@ -310,13 +329,13 @@ async def on_message_for_user(message):
             #トリガーコマンドが間違えている
             debug_log('/せとうぽのコマンドミス(/せとうぽの後にスペースが入っていない)')
             await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
-            await send_message(message.channel.id, embed=embed_help)
+            await send_embed(message.channel.id, embed_help)
             return
 
         if len(tmp) == 1:
             #コマンドがせとうぽのみ
             debug_log('ヘルプ表示処理')
-            await send_message(message.channel.id, embed=embed_help)
+            await send_embed(message.channel.id, embed_help)
             return
 
         elif len(tmp) == 2:
@@ -376,14 +395,14 @@ async def on_message_for_user(message):
             elif 'テスト' == tmp[1]:
                 #テストコマンド
                 debug_log('テストコマンド実行')
-                await send_message(message.channel.id, embed=embed_test)
+                await send_embed(message.channel.id, embed_test)
                 return
 
             else:
                 #該当コマンドなし 第一引数指定ミス
                 debug_log('該当コマンドなし 第一引数指定ミス')
                 await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
-                await send_message(message.channel.id, embed=embed_help)
+                await send_embed(message.channel.id, embed_help)
                 return
 
         elif len(tmp) == 4:
@@ -399,7 +418,7 @@ async def on_message_for_user(message):
             #/せとうぽだったが該当コマンドではなかった
             debug_log('該当コマンドなし 引数の数ミス')
             await send_message(message.channel.id, 'コマンドの入力に失敗しました。今一度ご確認ください。')
-            await send_message(message.channel.id, embed=embed_help)
+            await send_embed(message.channel.id, embed_help)
             return
 
 ############################################################
@@ -411,13 +430,11 @@ async def on_ready():
     Discode Bot 起動
 
     """
-    debug_log('on_ready() Start')
     #プレイ中を更新
     presence = discord.Game(random.choice(play_word_list))
     await client.change_presence(activity=presence)
     #せとうぽくん起動メッセージ
     await send_message(DEBUG_CHANNEL_ID, 'せとうぽくん起動しました')
-    debug_log('on_ready() End')
 
 @client.event
 async def on_member_join(member):
@@ -429,7 +446,6 @@ async def on_member_join(member):
     member : discord.Member
         メンバー情報
     """
-    debug_log('on_member_join(member) Start')
     global welcomemsg_title
     global welcomemsg_color
     global welcomemsg_img
@@ -437,15 +453,13 @@ async def on_member_join(member):
 
     if member.guild.id != STUP_SERVER_ID:
         debug_log(f'せとうぽサーバー以外のためスキップ({member.guild.id})')
-        debug_log('on_member_join(member) End')
         return
 
     #ようこそ文送信
     embed_join = discord.Embed(title=welcomemsg_title,description="",color=welcomemsg_color)
     embed_join.add_field(name=f":sparkles:{member.name}さん:sparkles:\r\nご参加ありがとうございます",value=welcomemsg_contents,inline=False)
     embed_join.set_thumbnail(url=welcomemsg_img)
-    await send_message(ZATUDAN_CHANNEL_ID, embed=embed_join)
-    debug_log('on_member_join(member) End')
+    await send_embed(ZATUDAN_CHANNEL_ID, embed_join)
 
 @client.event
 async def on_message(message):
@@ -457,8 +471,6 @@ async def on_message(message):
     message : discord.Message
         メッセージ情報
     """
-    debug_log('on_message(message) Start')
-    
     if message.author.bot:
         #Botの発言
         if message.author.id == SETUPKUN_ID:
@@ -469,8 +481,6 @@ async def on_message(message):
     else:
         #ユーザーの発言
         await on_message_for_user(message)
-    
-    debug_log('on_message(message) End')
 
 #実行
 client.run(token)
