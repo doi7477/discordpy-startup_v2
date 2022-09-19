@@ -110,11 +110,11 @@ syarenian_png ='https://lh3.googleusercontent.com/XPfsCHvTK2m8DxP86bV1E97RpA_pj1
 syarenian_contents = "@everyone "
 
 #アカイラム募集文
-redram_title = "22:00頃のアカイラム募集"
+redram_title = "アカイラム募集"
 redram_color = 0xED1C24
 redram_png = "https://lh3.googleusercontent.com/erYTDwgrj6fKqOWI9MR8j4zzS9Lbeocq_UjsdY7ltKKDju4mX1yxLwG-AvKyJHjvnIGWOp-tPkjx7K_wwq1Kk3ihyGGtsuNGk-DOJy3x6zA=rw"
-redram_contents = "🙆‍♀ ハード\r\n"\
-        "🙅‍♂️ ノーマル\r\n"\
+redram_contents = "🙆‍♀ ハード(22:00頃)\r\n"\
+        "🙅‍♂️ ノーマル(21:20頃)\r\n"\
 
 #カオスアビス募集文
 chaosAbyss_title = "22:00頃のカオスアビス募集"
@@ -325,44 +325,44 @@ async def on_message_for_another_bot(message):
     elif message.channel.id == DEBUG_INFORMATION_ID:
         #infomationlogでの発言
         if '!要塞通知' in message.content:
-            embed = discord.Embed(title=yosai_title,description="",color=yosai_color)
-            embed.add_field(name=yosai_contents,inline=False)
+            embed = discord.Embed(title=yosai_title,description=yosai_contents,color=yosai_color)
+            #embed.add_field(name=yosai_contents,inline=False)
             embed.set_thumbnail(url=yosai_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
-        elif '!建設物' in message.content:
-            embed = discord.Embed(title=building_title,description="",color=building_color)
-            embed.add_field(name=building_contents,inline=False)
+        
+        if '!建設物' in message.content:
+            embed = discord.Embed(title=building_title,description=building_contents,color=building_color)
+            #embed.add_field(name=building_contents,inline=False)
             embed.set_thumbnail(url=building_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
-        elif '!シャレニアン' in message.content:
-            embed = discord.Embed(title=syarenian_title,description="",color=syarenian_color)
-            embed.add_field(name=syarenian_contents,inline=False)
+
+        if '!シャレニアン' in message.content:
+            embed = discord.Embed(title=syarenian_title,description=syarenian_contents,color=syarenian_color)
+            #embed.add_field(name=syarenian_contents,inline=False)
             embed.set_thumbnail(url=syarenian_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
-        elif '!アカイラム' in message.content:
+
+        if '!アカイラム' in message.content:
             debug_log('[on_message_for_another_bot]:アカイラム討伐通知')
             embed = discord.Embed(title=redram_title,description="",color=redram_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=redram_contents,inline=False)
             embed.set_thumbnail(url=redram_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
-        elif '!カオスアビス' in message.content:
+        
+        if '!カオスアビス' in message.content:
             debug_log('[on_message_for_another_bot]:カオスアビス討伐通知')
             embed = discord.Embed(title=chaosAbyss_title,description="",color=chaosAbyss_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=chaosAbyss_contents,inline=False)
             embed.set_thumbnail(url=chaosAbyss_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
-        elif '!カオスマグナス' in message.content:
+        
+        if '!カオスマグナス' in message.content:
             debug_log('[on_message_for_another_bot]:カオスマグナス討伐通知')
             embed = discord.Embed(title=chaosMagnus_title,description="",color=chaosMagnus_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=chaosMagnus_contents,inline=False)
             embed.set_thumbnail(url=chaosMagnus_png)
             await send_embed(DEBUG_HIDE_ID, embed)
-            return
+        return
 
 async def on_message_for_user(message):
     """
