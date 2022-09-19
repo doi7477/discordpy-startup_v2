@@ -328,40 +328,40 @@ async def on_message_for_another_bot(message):
             embed = discord.Embed(title=yosai_title,description=yosai_contents,color=yosai_color)
             #embed.add_field(name=yosai_contents,inline=False)
             embed.set_thumbnail(url=yosai_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(YOUSAI_CHANNEL_ID, embed)
         
         if '!建設物' in message.content:
             embed = discord.Embed(title=building_title,description=building_contents,color=building_color)
             #embed.add_field(name=building_contents,inline=False)
             embed.set_thumbnail(url=building_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(ZATUDAN_CHANNEL_ID, embed)
 
         if '!シャレニアン' in message.content:
             embed = discord.Embed(title=syarenian_title,description=syarenian_contents,color=syarenian_color)
             #embed.add_field(name=syarenian_contents,inline=False)
             embed.set_thumbnail(url=syarenian_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(ZATUDAN_CHANNEL_ID, embed)
 
         if '!カオスアビス' in message.content:
             debug_log('[on_message_for_another_bot]:カオスアビス討伐通知')
             embed = discord.Embed(title=chaosAbyss_title,description="",color=chaosAbyss_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=chaosAbyss_contents,inline=False)
             embed.set_thumbnail(url=chaosAbyss_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(BOSS_CHANNEL_ID, embed)
 
         if '!アカイラム' in message.content:
             debug_log('[on_message_for_another_bot]:アカイラム討伐通知')
             embed = discord.Embed(title=redram_title,description="",color=redram_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=redram_contents,inline=False)
             embed.set_thumbnail(url=redram_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(BOSS_CHANNEL_ID, embed)
 
         if '!カオスマグナス' in message.content:
             debug_log('[on_message_for_another_bot]:カオスマグナス討伐通知')
             embed = discord.Embed(title=chaosMagnus_title,description="",color=chaosMagnus_color)
             embed.add_field(name=f"以下のリアクションをポチッと",value=chaosMagnus_contents,inline=False)
             embed.set_thumbnail(url=chaosMagnus_png)
-            await send_embed(DEBUG_HIDE_ID, embed)
+            await send_embed(BOSS_CHANNEL_ID, embed)
         return
 
 async def on_message_for_user(message):
